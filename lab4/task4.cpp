@@ -6,13 +6,13 @@
 #include <sstream>
 namespace TrieAhoKorasik {
     struct TrieNode {
-        long long value; //значение
-        std:: map<long long, TrieNode*> nodes; //дети
-        TrieNode* dad; //указатель на родителя
-        std:: vector<int> positions; //вектор вхождений
-        TrieNode* link_of_failure; //связь неудач
-        TrieNode* link_of_exit; //связь выхода
-        bool end_of_pattern; //символ конца паттерна
+        long long value;
+        std:: map<long long, TrieNode*> nodes;
+        TrieNode* dad;
+        std:: vector<int> positions;
+        TrieNode* link_of_failure;
+        TrieNode* link_of_exit; 
+        bool end_of_pattern;
         TrieNode (long long val) {
             value = val;
             dad = nullptr;
@@ -90,20 +90,20 @@ namespace TrieAhoKorasik {
 			int occurances[text.size()] = {};
 			TrieNode * current = root;
 			for (int i = 0; i < text.size(); ++i) {
-				while (current->link_of_failure != nullptr && current->CheckLink(text[i].first) == nullptr) { //если существует связь неудачи и дальше совпадения в тексте нет, то переходим по ней
+				while (current->link_of_failure != nullptr && current->CheckLink(text[i].first) == nullptr) {
 					current = current->link_of_failure;
 				}
-				if (current->CheckLink(text[i].first) != nullptr) { //если дальнейший символ есть в тексте, то переходим по дальнейшему
+				if (current->CheckLink(text[i].first) != nullptr) {
 					current = current->CheckLink(text[i].first);
 				}
-				if (current->end_of_pattern) { //если пришли в конец паттерна
+				if (current->end_of_pattern) {
 					for (std:: vector<int>:: iterator iterator = current->positions.begin(); iterator != current->positions.end(); ++iterator) {
 						if (i - *iterator >= 0) {
 							++occurances[i - *iterator];
 						}
 					}
 				}
-				if (current->link_of_exit != nullptr) { //если есть связь выхода, то переходим по связям выхода
+				if (current->link_of_exit != nullptr) {
 					TrieNode* node = current->link_of_exit;
 					while (node != nullptr) {
 						for (std:: vector<int>:: iterator iterator = node->positions.begin(); iterator != node->positions.end(); ++iterator) {
