@@ -35,7 +35,7 @@ namespace TrieAhoKorasik {
     };
     struct Trie {
 		TrieNode* root;
-		int amount_of_patterns = 0;
+		int amount_of_patterns;
 		Trie (int patterns_amount) {
 			root = new TrieNode (0);
 			amount_of_patterns = patterns_amount;
